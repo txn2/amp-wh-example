@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amp-example-wh
+  namespace: amp-system
+  labels:
+    app: amp-example-wh
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: amp-example-wh
+  template:
+    metadata:
+      labels:
+        app: amp-example-wh
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '2112'
+    spec:
+      containers:
+        - name: amp-example-wh
+          image: txn2/amp-wh-example:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: IP
+              value: "0.0.0.0"
+            - name: PORT
+              value: "8070"
+            - name: MODE
+              value: "release"
+          ports:
+            - name: http-int
+              containerPort: 8070
+            - name: http-mtx
+              containerPort: 2112

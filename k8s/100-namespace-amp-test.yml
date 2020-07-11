@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: amp-test
+  labels:
+    amp.txn2.com/enabled: "true"
+  annotations:
+    amp.txn2.com/ep: "http://amp-example-wh.amp-system:8070/mutatePod"
