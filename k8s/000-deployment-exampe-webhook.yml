@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: amp-example-wh
+  namespace: amp-system
+spec:
+  selector:
+    app: amp-example-wh
+  ports:
+    - name: http-int
+      protocol: "TCP"
+      port: 8070
+      targetPort: http-int
+  type: ClusterIP
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
