@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"os"
 
-	"k8s.io/apimachinery/pkg/api/resource"
-
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 // Config configures the API
@@ -57,7 +56,7 @@ func (a *Api) OkHandler(version string, mode string, service string) gin.Handler
 	}
 }
 
-// MutatePod
+// MutatePodHandler
 func (a *Api) MutatePodHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
@@ -98,7 +97,7 @@ func (a *Api) MutatePodHandler() gin.HandlerFunc {
 
 // MutatePod
 func (a *Api) MutatePod(pod corev1.Pod) ([]PatchOperation, error) {
-	var po []PatchOperation
+	po := make([]PatchOperation, 0)
 
 	logInfo := []zap.Field{
 		zap.String("PodName", pod.Name),
